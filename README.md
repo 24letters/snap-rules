@@ -6,8 +6,8 @@
 - [x] Scaffold basic ui with mock data
 - [x] Actually set up a database (w/ vercel postgres)
 - [x] Attach database to UI
-- [ ] Add authentication (w/ clerk)
-- [ ] Add image upload
+- [x] Add authentication (w/ clerk)
+- [x] Add image upload
 - [ ] Error management (w/ Sentry)
 - [ ] Routing/image page (parallel route)
 - [ ] Delete button (w/ Server Actions)

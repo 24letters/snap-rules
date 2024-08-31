@@ -11,6 +11,7 @@ import { extractRouterConfig } from "uploadthing/server";
 
 import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { ReactNode } from "react";
+import { CSPostHogProvider } from "~/app/_analytics/provider";
 
 export const metadata: Metadata = {
   title: "Snap Rules",
@@ -24,23 +25,25 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode; modal: ReactNode }>) {
   return (
     <ClerkProvider>
-      <html lang="en" className={`${GeistSans.variable}`}>
-        <body>
-          <NextSSRPlugin
-            /**
-             * The `extractRouterConfig` will extract **only** the route configs
-             * from the router to prevent additional information from being
-             * leaked to the client. The data passed to the client is the same
-             * as if you were to fetch `/api/uploadthing` directly.
-             */
-            routerConfig={extractRouterConfig(ourFileRouter)}
-          />
-          <TopNav />
-          {children}
-          {modal}
-          <div id="modal-root" />
-        </body>
-      </html>
+      <CSPostHogProvider>
+        <html lang="en" className={`${GeistSans.variable}`}>
+          <body>
+            <NextSSRPlugin
+              /**
+               * The `extractRouterConfig` will extract **only** the route configs
+               * from the router to prevent additional information from being
+               * leaked to the client. The data passed to the client is the same
+               * as if you were to fetch `/api/uploadthing` directly.
+               */
+              routerConfig={extractRouterConfig(ourFileRouter)}
+            />
+            <TopNav />
+            {children}
+            {modal}
+            <div id="modal-root" />
+          </body>
+        </html>
+      </CSPostHogProvider>
     </ClerkProvider>
   );
 }
